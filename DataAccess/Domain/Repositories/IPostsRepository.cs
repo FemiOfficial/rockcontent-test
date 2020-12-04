@@ -1,0 +1,10 @@
+﻿using System;
+using DataAccess.Domain.Models;
+
+namespace DataAccess.Domain.Repositories
+{
+    public interface IPostsRepository : IBaseRepository<Posts>
+    {
+
+    }
+}
