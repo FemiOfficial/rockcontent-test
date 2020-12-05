@@ -65,18 +65,24 @@ namespace DataAccess.Persistence.Repositories
         public async Task<Likes> GetLikeWithIpAddressAndUserAgentForPost(string IpAddress, string UserAgent, string PostId)
         {
             Likes like = await _context.Likes.FirstOrDefaultAsync(x =>
-                (x.RequestIpAddress == IpAddress && x.RequestUserAgent == UserAgent && x.PostId == PostId));
+                x.RequestIpAddress == IpAddress && x.RequestUserAgent == UserAgent && x.PostId == PostId);
 
             return like;
         }
 
         public async Task<Likes> GetLikeWithUsernameForPost(string username, string postId)
         {
-            Likes like = await _context.Likes.FirstOrDefaultAsync(x => (x.RequestUsername == username && x.PostId == postId));
+            Likes like = await _context.Likes.FirstOrDefaultAsync(x => x.RequestUsername == username && x.PostId == postId);
 
             return like;
         }
 
+        public async Task<Likes> GetLikeWithUsernameAndClientReferenceIdForPost(string username, string postId, string clientReferenceId)
+        {
+            Likes like = await _context.Likes.FirstOrDefaultAsync(x => x.RequestUsername == username
+                && x.PostId == postId && x.ClientReferenceId == clientReferenceId);
 
+            return like;
+        }
     }
 }

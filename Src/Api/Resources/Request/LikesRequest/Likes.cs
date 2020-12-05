@@ -23,16 +23,15 @@ namespace Api.Resources.Request.LikesRequest
 
 
     public class DisLikeRequestDto
-    {
-        public long LikeId { get; set; }
-        public string RequestIpAddress { get; set; }
-        public string RequestUserAgent { get; set; }
-        public long PostId { get; set; }
+    { 
+        public string PostId { get; set; }
+        [Required]
         public string ClientReferenceId { get; set; }
+        [Required]
         public string RequestUsername { get; set; }
     }
 
-    public class LikesQueryRequestDto : QueryRequest
+    public class LikesQueryByPostRequestDto : QueryRequest
     {
         [Required]
         public string PostId { get; set; }
@@ -46,9 +45,21 @@ namespace Api.Resources.Request.LikesRequest
 
     }
 
+    public class LikesQueryByClientReferenceIdRequestDto : QueryRequest
+    {
+        [Required]
+        public string ClientReferenceId { get; set; }
+        public string PostId { get; set; }
+
+        public string RequestIpAddress { get; set; }
+        public string RequestUserAgent { get; set; }
+        public string RequestUsername { get; set; }
+
+    }
 
 
 
 
-    
+
+
 }

@@ -1,10 +1,45 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{D7EC758F-9951-4045-8086-308E145AA25B}|Default">
   <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="Tests/Api.Tests/Controller/LikeControllerTests.cs" Line="38" Column="10" />
+      <File FileName="Src/Api/Controllers/LikesController.cs" Line="72" Column="14" />
+      <File FileName="Src/Api/Resources/Request/LikesRequest/Likes.cs" Line="30" Column="19" />
+      <File FileName="Src/Api/Mappings/AutoMapperProfile.cs" Line="16" Column="62" />
+      <File FileName="Src/Api/Services/Likes/LikeService.cs" Line="128" Column="71" />
+      <File FileName="Src/DataAccess/Domain/Repositories/ILikesRepository.cs" Line="15" Column="52" />
+      <File FileName="Src/DataAccess/Persistence/Repositories/BaseRepository.cs" Line="1" Column="1" />
+      <File FileName="Src/DataAccess/Persistence/Repositories/LikesRepository.cs" Line="68" Column="105" />
+      <File FileName="Src/Api/Services/Likes/ILikeService.cs" Line="17" Column="43" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="rockcontent-challenge" expanded="True" selected="True">
-            <Node name="Api" expanded="True" />
+          <Node name="rockcontent-challenge" expanded="True">
+            <Node name="Api" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="LikesController.cs" selected="True" />
+              </Node>
+              <Node name="Mappings" expanded="True" />
+              <Node name="Resources" expanded="True">
+                <Node name="Request" expanded="True">
+                  <Node name="LikesRequest" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Services" expanded="True">
+                <Node name="Likes" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Api.Tests" expanded="True">
+              <Node name="Controller" expanded="True" />
+            </Node>
+            <Node name="DataAccess" expanded="True">
+              <Node name="Domain" expanded="True">
+                <Node name="Repositories" expanded="True" />
+              </Node>
+              <Node name="Persistence" expanded="True">
+                <Node name="Repositories" expanded="True" />
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -15,6 +50,19 @@
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State />
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="rockcontent-challenge" expanded="True">
+            <Node name="Api.Tests" expanded="True">
+              <Node name="Api.Tests.Controller" expanded="True">
+                <Node name="LikeControllerTests" expanded="True">
+                  <Node name="TestPingApp" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

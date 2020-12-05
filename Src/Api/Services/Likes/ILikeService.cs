@@ -14,7 +14,7 @@ namespace Api.Services
     {
 
         Task<ApiResponse<LikeResponseDto>> LikePost(LikeRequestDto likeRequest);
-        Task<string> DisLikePost(DisLikeRequestDto disLikeRequest);
+        Task<ApiResponse<LikeResponseDto>> DisLikePost(DisLikeRequestDto disLikeRequest);
 
         Task<ApiResponse<LikesQueryResult<Likes>>> GetAllLikesForPost(LikesQuery query);
         

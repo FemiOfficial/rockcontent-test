@@ -24,15 +24,10 @@ namespace Api.Controllers
 
         private readonly ILikeService _likeService;
 
-        private readonly IConfiguration _config;
-        private readonly ILogger _logger;
         private IMapper _mapper;
 
-        public LikesController(ILikeService likeService, ILogger<LikesController> logger,
-            IConfiguration config, IMapper mapper)
+        public LikesController(ILikeService likeService, IMapper mapper)
         {
-            _config = config;
-            _logger = logger;
             _mapper = mapper;
             _likeService = likeService;
         }
@@ -70,13 +65,32 @@ namespace Api.Controllers
 
         }
 
-        [HttpGet("Likes")]
-        public async Task<IActionResult> GetLikes([FromQuery] LikesQueryRequestDto likeQueryRequest)
+        [HttpDelete("DislikePost/{postId}")]
+        public async Task<ActionResult> DislikePost(int postId, [FromBody]DisLikeRequestDto dislikeRequest)
+        {
+            try
+            {
+
+                dislikeRequest.PostId = postId.ToString();
+
+                var response = await _likeService.DisLikePost(dislikeRequest);
+
+                return Ok(response);
+
+            } catch(AppException ex)
+            {
+                return BadRequest(new ErrorResponse(ex.Message, ApiReponseStatusCodes.BadRequest));
+
+            }
+        }
+
+        [HttpGet("LikesByPost")]
+        public async Task<IActionResult> GetLikesForPost([FromQuery] LikesQueryByPostRequestDto likeQueryRequest)
         {
 
             try
             {
-                var likesQuery = _mapper.Map<LikesQueryRequestDto, LikesQuery>(likeQueryRequest);
+                var likesQuery = _mapper.Map<LikesQueryByPostRequestDto, LikesQuery>(likeQueryRequest);
 
                 var response = await _likeService.GetAllLikesForPost(likesQuery);
 
@@ -89,6 +103,30 @@ namespace Api.Controllers
             }
 
         }
+
+        [HttpGet("LikesByClientReferenceId")]
+        public async Task<IActionResult> GetLikesForPClientReferenceId([FromQuery]
+            LikesQueryByClientReferenceIdRequestDto likeQueryRequest)
+        {
+
+            try
+            {
+                var likesQuery = _mapper.Map<LikesQueryByClientReferenceIdRequestDto,
+                    LikesQuery>(likeQueryRequest);
+
+                var response = await _likeService.GetAllLikesForPost(likesQuery);
+
+                return Ok(response);
+
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(new ErrorResponse(ex.Message, ApiReponseStatusCodes.BadRequest));
+            }
+
+        }
+
+
 
     }
 }

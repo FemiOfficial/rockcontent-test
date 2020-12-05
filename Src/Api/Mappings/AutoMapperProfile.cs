@@ -12,7 +12,8 @@ namespace Api.Mappings
         public AutoMapperProfile()
         {
             CreateMap<LikeRequestDto, Likes>();
-            CreateMap<LikesQueryRequestDto, LikesQuery>();
+            CreateMap<LikesQueryByPostRequestDto, LikesQuery>();
+            CreateMap<LikesQueryByClientReferenceIdRequestDto, LikesQuery>();
         }
     }
 }

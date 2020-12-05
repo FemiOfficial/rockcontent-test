@@ -11,6 +11,8 @@ namespace DataAccess.Domain.Repositories
         Task<QueryResult<Likes>> ListAsync(LikesQuery query);
         Task<Likes> GetLikeWithIpAddressAndUserAgentForPost(string IpAddress, string UserAgent, string postId);
         Task<Likes> GetLikeWithUsernameForPost(string username, string postId);
-            
+        Task<Likes> GetLikeWithUsernameAndClientReferenceIdForPost(string username,
+            string postId, string clientReferenceId);
+
     }
 }

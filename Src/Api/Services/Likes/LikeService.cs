@@ -110,9 +110,50 @@ namespace Api.Services
         }
 
 
-        public Task<string> DisLikePost(DisLikeRequestDto disLikeRequest)
+        public async Task<ApiResponse<LikeResponseDto>> DisLikePost(DisLikeRequestDto disLikeRequest)
         {
-            throw new NotImplementedException();
+            ApiResponse<LikeResponseDto> result = new ApiResponse<LikeResponseDto>();
+            var resultMessage = "";
+
+            // To Dislike a PostId previously liked, the Like record saved to Db is
+            // Deleted from Db
+
+            try
+            {
+                Likes like = await GetLikeToDisLike(disLikeRequest.PostId,
+                    disLikeRequest.ClientReferenceId, disLikeRequest.RequestUsername);
+
+                if (like == null)
+                {
+                    resultMessage = "Could not fetch Like to Dislike";
+                    _logger.LogInformation(resultMessage);
+                    throw new AppException(resultMessage);
+                }
+
+                _likeRepository.Remove(like);
+                await _unitOfWork.CompleteAsync();
+
+                resultMessage = $"Successfully dislike PostId: {disLikeRequest.PostId}";
+
+                result.Message = resultMessage;
+                result.Status = Helpers.ApiReponseStatusCodes.Success;
+                result.Data = null;
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error, ex.StackTrace);
+                _logger.Log(LogLevel.Error, ex.Message);
+
+                throw new AppException(ex.Message);
+            }
+
+
+
+
+
         }
 
         public async Task<ApiResponse<LikesQueryResult<Likes>>> GetAllLikesForPost(LikesQuery query)
@@ -178,6 +219,11 @@ namespace Api.Services
             }
 
             return true;
+        }
+
+        private async Task<Likes> GetLikeToDisLike(string postId, string clientRefId, string username)
+        {
+            return await _likeRepository.GetLikeWithUsernameAndClientReferenceIdForPost(username, postId, clientRefId);
         }
     }
 }
