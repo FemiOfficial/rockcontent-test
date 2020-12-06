@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api.Resources.Request.LikesRequest;
+using Api.Resources.Request;
 using Api.Resources.Response;
-using Api.Resources.Response.LikesResponse;
 using DataAccess.Domain.Models;
 using DataAccess.Domain.Queries;
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Resources.Request.LikesRequest
+
+namespace Api.Resources.Request
 {
     public class LikeRequestDto
     {
@@ -19,6 +20,8 @@ namespace Api.Resources.Request.LikesRequest
 
         [Required]
         public string RequestUsername { get; set; }
+
+
     }
 
 

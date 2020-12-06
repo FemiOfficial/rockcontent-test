@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Exceptions;
-using Api.Resources.Request.LikesRequest;
-using Api.Resources.Response.LikesResponse;
+using Api.Resources.Request;
+using Api.Resources.Response;
 using AutoMapper;
 using DataAccess.Domain.Repositories;
 using DataAccess.Domain.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Api.Resources.Response;
 using DataAccess.Domain.Queries;
 
 namespace Api.Services
 {
     public class LikeService : ILikeService
     {
-
-        private readonly IConfiguration _configuration;
 
         private readonly IUnitofWork _unitOfWork;
 
@@ -28,9 +23,9 @@ namespace Api.Services
         private readonly IMapper _mapper;
 
         public LikeService(ILogger<LikeService> logger, IMapper mapper,IUnitofWork unitofWork,
-            ILikesRepository likesRepository, IConfiguration configuration)
+            ILikesRepository likesRepository)
         {
-            _configuration = configuration;
+     
             _unitOfWork = unitofWork;
             _likeRepository = likesRepository;
             _logger = logger;
@@ -38,6 +33,8 @@ namespace Api.Services
 
 
         }
+
+
 
         public async Task<ApiResponse<LikeResponseDto>> LikePost(LikeRequestDto likeRequest)
         {

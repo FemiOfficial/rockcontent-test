@@ -2,7 +2,7 @@
 
 using AutoMapper;
 using DataAccess.Domain.Models;
-using Api.Resources.Request.LikesRequest;
+using Api.Resources.Request;
 using DataAccess.Domain.Queries;
 
 namespace Api.Mappings
@@ -12,6 +12,8 @@ namespace Api.Mappings
         public AutoMapperProfile()
         {
             CreateMap<LikeRequestDto, Likes>();
+            CreateMap<Likes, LikesQuery>();
+            CreateMap<Likes, LikeRequestDto>();
             CreateMap<LikesQueryByPostRequestDto, LikesQuery>();
             CreateMap<LikesQueryByClientReferenceIdRequestDto, LikesQuery>();
         }

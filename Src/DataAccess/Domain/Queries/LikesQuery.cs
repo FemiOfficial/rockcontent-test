@@ -1,4 +1,6 @@
 ﻿using System;
+
+
 namespace DataAccess.Domain.Queries
 {
     public class LikesQuery : Query

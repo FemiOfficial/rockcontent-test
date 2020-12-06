@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.HttpOverrides;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Api.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Api.Resources.Request.LikesRequest;
+
+using Api.Resources.Request;
 using Api.Helpers;
 using Api.Resources.Response;
 using Api.Exceptions;
@@ -40,7 +35,6 @@ namespace Api.Controllers
         }
 
 
-
         [HttpPost("LikePost")]
         public async Task<IActionResult> LikePost([FromBody]LikeRequestDto likeRequest)
         {
@@ -48,9 +42,18 @@ namespace Api.Controllers
             try
             {
 
-                likeRequest.RequestIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                // Checking if both values a null because at runtime while running unit/integration test
+                // Request.HttpContext.Connection.RemoteIpAddress is null, hence it will throw a System.NullReferenceException
+                // Exception
 
-                likeRequest.RequestUserAgent = Request.Headers["User-Agent"].ToString();
+                if (likeRequest.RequestIpAddress == null && likeRequest.RequestUserAgent == null)
+                {
+                    likeRequest.RequestIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+                    likeRequest.RequestUserAgent = Request.Headers["User-Agent"].ToString();
+
+                }
+
 
                 var response = await _likeService.LikePost(likeRequest);
 

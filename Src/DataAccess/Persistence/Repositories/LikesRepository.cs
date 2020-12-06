@@ -8,6 +8,7 @@ using DataAccess.Domain.Repositories;
 using DataAccess.Persistence.Contexts;
 using DataAccess.Domain.Queries;
 
+
 namespace DataAccess.Persistence.Repositories
 {
     public class LikesRepository : BaseRepository<Likes>, ILikesRepository
@@ -84,5 +85,14 @@ namespace DataAccess.Persistence.Repositories
 
             return like;
         }
+
+        public async Task<Likes> GetLikesByPostId(string postId)
+        {
+            var like = await _context.Likes.FirstOrDefaultAsync(x => x.PostId == postId );
+
+            return like;
+        }
+
+        
     }
 }

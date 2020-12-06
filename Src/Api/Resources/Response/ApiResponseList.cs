@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Api.Helpers;
 
 namespace Api.Resources.Response
@@ -8,7 +9,7 @@ namespace Api.Resources.Response
 
         public ApiReponseStatusCodes Status { get; set; }
         public string Message { get; set; }
-        public T Data { get; set; }
+        public List<T> Data { get; set; }
         
     }
 }

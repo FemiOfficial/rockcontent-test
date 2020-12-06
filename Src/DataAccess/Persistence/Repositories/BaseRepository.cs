@@ -22,7 +22,7 @@ namespace DataAccess.Persistence.Repositories
             await _context.Set<TEntity>().AddAsync(entity);
         }
 
-        public async Task<TEntity> Get(int id)
+        public async Task<TEntity> GetAsync(int id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
