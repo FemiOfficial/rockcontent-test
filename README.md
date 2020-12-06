@@ -10,6 +10,6 @@ Although, the reusable Like Feature component does not not handle Authentication
 
 
 ### Technology Used
-C#, .NET Core 3.1
+C#, .NET Core 3.1, XUnit, Docker
 
 ### Installation
