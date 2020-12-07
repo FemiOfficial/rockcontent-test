@@ -1,6 +1,6 @@
 ﻿using System;
 using Api.Helpers;
-namespace Api.Resources.Response
+namespace Api.Communication.Response
 {
     public class ApiResponse<T>
     {

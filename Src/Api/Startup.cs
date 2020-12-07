@@ -47,7 +47,6 @@ namespace Api
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<ILikesRepository, LikesRepository>();
             services.AddScoped<ICustomValidators, CustomValidators>();
-            services.AddScoped<IUtilities, Utilities>();
 
 
 

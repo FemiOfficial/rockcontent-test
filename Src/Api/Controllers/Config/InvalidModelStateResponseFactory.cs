@@ -1,5 +1,5 @@
 ﻿using System;
-using Api.Resources.Response;
+using Api.Communication.Response;
 using Api.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Api.Extensions;

@@ -3,9 +3,9 @@ using Api.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-using Api.Resources.Request;
+using Api.Communication.Request;
 using Api.Helpers;
-using Api.Resources.Response;
+using Api.Communication.Response;
 using Api.Exceptions;
 using DataAccess.Domain.Queries;
 using Api.Middlewares;
@@ -52,19 +52,19 @@ namespace Api.Controllers
                 // Request.HttpContext.Connection.RemoteIpAddress is null, hence it will throw a System.NullReferenceException
                 // Exception
 
-                // Checking for the AccessToken only when request is from an external client (not from in-app integration test)
+                // Validate for the AccessToken
 
-                if (likeRequest.RequestIpAddress == null && likeRequest.RequestUserAgent == null)
-                {
-                    likeRequest.RequestIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                var request = _mapper.Map<LikeRequestDto, LikeDto>(likeRequest);
 
-                    likeRequest.RequestUserAgent = Request.Headers["User-Agent"].ToString();
+                request.RequestIpAddress = Request.HttpContext.Connection.RemoteIpAddress == null ? null : Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
-                    _customValidators.validateRequestToken(Request.Headers["Token"].ToString(), likeRequest.ClientReferenceId);
-                }
+                request.RequestUserAgent = Request.Headers["User-Agent"].ToString();
+
+                _customValidators.validateRequestToken(Request.Headers["Token"].ToString(), likeRequest.ClientReferenceId);
+            
 
 
-                var response = await _likeService.LikePost(likeRequest);
+                var response = await _likeService.LikePost(request);
 
                 return Ok(response);
 

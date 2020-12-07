@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Api.Resources.Request
+namespace Api.Communication.Request
 {
     public class QueryRequest
     {

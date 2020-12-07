@@ -2,27 +2,20 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace Api.Helpers
 {
 
-    public interface IUtilities
+
+    public static class Utilities
     {
-        string CreateHmacToken(string message, string key);
-        bool VerifyHmacToken(string clientHmacToken, string clearRefId, string key);
-    }
-
-    public class Utilities : IUtilities
-    {
-       
-        public Utilities() { }
-
-
-        public string CreateHmacToken(string message, string secret)
+    
+        public static string CreateHmacToken(string message, string secretkey)
         {
 
             var encoding = new System.Text.ASCIIEncoding();
-            byte[] keyByte = encoding.GetBytes(secret);
+            byte[] keyByte = encoding.GetBytes(secretkey);
             byte[] messageBytes = encoding.GetBytes(message);
             using (var hmacsha256 = new HMACSHA256(keyByte))
             {
@@ -31,7 +24,7 @@ namespace Api.Helpers
             }
         }
 
-        public bool VerifyHmacToken(string clientHmacToken, string clearRefId, string key)
+        public static bool VerifyHmacToken(string clientHmacToken, string clearRefId, string key)
         {
             if(CreateHmacToken(clearRefId, key) == clientHmacToken)
             {

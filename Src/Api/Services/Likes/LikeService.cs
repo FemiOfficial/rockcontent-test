@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Api.Exceptions;
-using Api.Resources.Request;
-using Api.Resources.Response;
+using Api.Communication.Request;
+using Api.Communication.Response;
 using AutoMapper;
 using DataAccess.Domain.Repositories;
 using DataAccess.Domain.Models;
@@ -25,18 +25,13 @@ namespace Api.Services
         public LikeService(ILogger<LikeService> logger, IMapper mapper,IUnitofWork unitofWork,
             ILikesRepository likesRepository)
         {
-     
             _unitOfWork = unitofWork;
             _likeRepository = likesRepository;
             _logger = logger;
             _mapper = mapper;
-
-
         }
 
-
-
-        public async Task<ApiResponse<LikeResponseDto>> LikePost(LikeRequestDto likeRequest)
+        public async Task<ApiResponse<LikeResponseDto>> LikePost(LikeDto likeRequest)
         {
             // Do a check on the Request Ip Address and User-Agent to ensure a like action is not
             // Initiated twice from the same user on the same device to avoid spam
@@ -102,7 +97,6 @@ namespace Api.Services
 
 
         }
-
 
         public async Task<ApiResponse<LikeResponseDto>> DisLikePost(DisLikeRequestDto disLikeRequest)
         {
@@ -193,7 +187,6 @@ namespace Api.Services
 
             
         }
-
 
         private async Task<bool> LikedExistFromClient(string IpAddress, string UserAgent, string clientRefId, string postId, string username)
         {

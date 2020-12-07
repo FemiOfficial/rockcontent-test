@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Api.Helpers;
-namespace Api.Resources.Response
+namespace Api.Communication.Response
 {
     public class LikeResponseDto
     {

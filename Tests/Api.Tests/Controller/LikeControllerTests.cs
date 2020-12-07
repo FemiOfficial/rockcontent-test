@@ -9,11 +9,13 @@ using DataAccess.Domain.Repositories;
 using Moq;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
-using Api.Resources.Request;
+using Api.Communication.Request;
 using Api.Tests.Resources;
 using System.Collections.Generic;
-using Api.Resources.Response;
+using Api.Communication.Response;
 using Api.Middlewares;
+using Api.Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace Api.Tests.Controller
 {
@@ -24,6 +26,9 @@ namespace Api.Tests.Controller
         private readonly Mock<ILikesRepository> _mocklikerepository;
         private readonly LikesController _likesController;
         private readonly Dictionary<string, string> headerMap;
+        
+        private readonly IConfiguration configuration;
+
 
         private IMapper _mapper;
 
@@ -32,7 +37,8 @@ namespace Api.Tests.Controller
         {
             _likesController = new LikesController(_mocklikeService, _mapper, _mockcustomValidators);
             headerMap = new Dictionary<string, string>();
-            headerMap.Add("Content-Type", "application/json");
+
+            configuration = InitConfiguration();
 
         }
 
@@ -44,12 +50,22 @@ namespace Api.Tests.Controller
             // Arrange
             var like = new LikeRequestDto()
             {
-                RequestIpAddress = "127.0.0.1",
-                RequestUserAgent = "Unit-Test",
                 RequestUsername = "tester",
                 PostId = new Guid().ToString("N"),
                 ClientReferenceId = new Guid().ToString()
             };
+
+            
+
+
+            var secretkey = configuration.GetSection("AppSettings:SECRET_KEY").Value;
+
+
+
+
+            var accessToken = Utilities.CreateHmacToken(like.ClientReferenceId, secretkey);
+
+            headerMap.Add("Token", accessToken);
 
             // Act
             var response = await DoPostAsync(ApiRoutes.Likes._likePosturl, headerMap, like);
@@ -59,7 +75,7 @@ namespace Api.Tests.Controller
             Assert.Equal(Helpers.ApiReponseStatusCodes.Created, jsondata.Status);
 
             Assert.Equal("Successfully liked post", jsondata.Message);
-            Assert.Equal(like.RequestUserAgent, jsondata.Data.RequestUserAgent);
+           
             Assert.Equal("00000000-0000-0000-0000-000000000000", jsondata.Data.ClientReferenceId);
 
         }
