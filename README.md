@@ -47,12 +47,13 @@ The application can installed and ran easily, either as a docker container or wi
 * Navigate to root folder of the project and run `docker-compose  up -d`, this creates docker containers for the app and MSSQL database
 * Access app from your local machine using `http://localhost:8000//api/likefeature/ping`
 
-#### Visual Studio (IIS Server)
+#### Visual Studio 
 * Ensure you have Visual Studio IDE installed, .NET Core 3.1 and Microsoft SQL Server on your local machine
 * Clone the repo `git clone https://github.com/FemiOfficial/rockcontent-test.git`
 * Navigate to root folder of the project and open the solution using Visual Studio
 * Run a migration for the database using `dotnet ef database update --startup-project ./Src/Api/`
-* Access app from your local machine using `http://localhost:${portusedbyyourlocalIISserver}//api/likefeature/ping`
+* Run the solution (Ensure **Api** is set as Start up Project)
+* Access app from your local machine using `http://localhost:${portusedbyyourlocalvisualstudio}//api/likefeature/ping`
 
 
 ### Optimizations
