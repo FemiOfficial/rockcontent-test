@@ -47,11 +47,6 @@ namespace Api.Controllers
             try
             {
 
-
-                // Checking if both values a null because at runtime while running unit/integration test
-                // Request.HttpContext.Connection.RemoteIpAddress is null, hence it will throw a System.NullReferenceException
-                // Exception
-
                 // Validate for the AccessToken
 
                 var request = _mapper.Map<LikeRequestDto, LikeDto>(likeRequest);
