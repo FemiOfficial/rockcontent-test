@@ -8,6 +8,7 @@ using Api.Helpers;
 using Api.Resources.Response;
 using Api.Exceptions;
 using DataAccess.Domain.Queries;
+using Api.Middlewares;
 
 
 namespace Api.Controllers
@@ -21,10 +22,14 @@ namespace Api.Controllers
 
         private IMapper _mapper;
 
-        public LikesController(ILikeService likeService, IMapper mapper)
+        private readonly ICustomValidators _customValidators;
+
+        public LikesController(ILikeService likeService, IMapper mapper,
+            ICustomValidators customValidators)
         {
             _mapper = mapper;
             _likeService = likeService;
+            _customValidators = customValidators;
         }
 
         [HttpGet("Ping")]
@@ -42,9 +47,12 @@ namespace Api.Controllers
             try
             {
 
+
                 // Checking if both values a null because at runtime while running unit/integration test
                 // Request.HttpContext.Connection.RemoteIpAddress is null, hence it will throw a System.NullReferenceException
                 // Exception
+
+                // Checking for the AccessToken only when request is from an external client (not from in-app integration test)
 
                 if (likeRequest.RequestIpAddress == null && likeRequest.RequestUserAgent == null)
                 {
@@ -52,6 +60,7 @@ namespace Api.Controllers
 
                     likeRequest.RequestUserAgent = Request.Headers["User-Agent"].ToString();
 
+                    _customValidators.validateRequestToken(Request.Headers["Token"].ToString(), likeRequest.ClientReferenceId);
                 }
 
 

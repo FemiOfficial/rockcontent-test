@@ -40,5 +40,6 @@
     <Folder Include="Resources\Request\QueryRequest\" />
     <Folder Include="Network\" />
     <Folder Include="Network\Api\" />
+    <Folder Include="Middlewares\" />
   </ItemGroup>
 </Project>

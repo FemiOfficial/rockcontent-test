@@ -20,6 +20,8 @@ using DataAccess.Domain.Repositories;
 using System.Text;
 using Api.Services;
 using Api.Controllers.Config;
+using Api.Middlewares;
+using Api.Helpers;
 using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Api
@@ -39,24 +41,14 @@ namespace Api
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                b => b.MigrationsAssembly("DataAccess")));
 
-            
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuerSigningKey = true,
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-            //            .GetBytes(Configuration.GetSection("Jwt:Token").Value)),
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true
-            //        };
-            //});
+           
 
             services.AddScoped<IUnitofWork, UnitofWork>();
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<ILikesRepository, LikesRepository>();
-         
+            services.AddScoped<ICustomValidators, CustomValidators>();
+            services.AddScoped<IUtilities, Utilities>();
+
 
 
             services.AddControllers().ConfigureApiBehaviorOptions(options =>

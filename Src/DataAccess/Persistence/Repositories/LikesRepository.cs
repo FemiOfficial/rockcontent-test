@@ -63,24 +63,27 @@ namespace DataAccess.Persistence.Repositories
 
         }
 
-        public async Task<Likes> GetLikeWithIpAddressAndUserAgentForPost(string IpAddress, string UserAgent, string PostId)
+        public async Task<Likes> GetLikeWithIpAddressAndUserAgentForPost(string IpAddress, string UserAgent,
+            string clientRefId, string PostId, string username)
         {
-            Likes like = await _context.Likes.FirstOrDefaultAsync(x =>
-                x.RequestIpAddress == IpAddress && x.RequestUserAgent == UserAgent && x.PostId == PostId);
+            Likes like = await _context.Likes.AsNoTracking().FirstOrDefaultAsync(x =>
+                (x.RequestIpAddress == IpAddress && x.RequestUserAgent == UserAgent && x.PostId == PostId && x.ClientReferenceId == clientRefId) ||
+                (x.RequestUsername == username
+                && x.PostId == PostId && x.ClientReferenceId == clientRefId));
 
             return like;
         }
 
         public async Task<Likes> GetLikeWithUsernameForPost(string username, string postId)
         {
-            Likes like = await _context.Likes.FirstOrDefaultAsync(x => x.RequestUsername == username && x.PostId == postId);
+            Likes like = await _context.Likes.AsNoTracking().FirstOrDefaultAsync(x => x.RequestUsername == username && x.PostId == postId);
 
             return like;
         }
 
         public async Task<Likes> GetLikeWithUsernameAndClientReferenceIdForPost(string username, string postId, string clientReferenceId)
         {
-            Likes like = await _context.Likes.FirstOrDefaultAsync(x => x.RequestUsername == username
+            Likes like = await _context.Likes.AsNoTracking().FirstOrDefaultAsync(x => x.RequestUsername == username
                 && x.PostId == postId && x.ClientReferenceId == clientReferenceId);
 
             return like;
@@ -88,7 +91,7 @@ namespace DataAccess.Persistence.Repositories
 
         public async Task<Likes> GetLikesByPostId(string postId)
         {
-            var like = await _context.Likes.FirstOrDefaultAsync(x => x.PostId == postId );
+            var like = await _context.Likes.AsNoTracking().FirstOrDefaultAsync(x => x.PostId == postId );
 
             return like;
         }

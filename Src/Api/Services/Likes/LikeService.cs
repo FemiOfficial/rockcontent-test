@@ -54,13 +54,10 @@ namespace Api.Services
             try
             {
                 var isLikedFromClient = await LikedExistFromClient(likeRequest.RequestIpAddress,
-                    likeRequest.RequestUserAgent, likeRequest.PostId);
+                    likeRequest.RequestUserAgent, likeRequest.ClientReferenceId, likeRequest.PostId, likeRequest.RequestUsername);
 
-                var isLikedFromUsername = await LikedExistFromUsername(likeRequest.RequestUsername, likeRequest.PostId);
 
-             
-
-                if (isLikedFromClient || isLikedFromUsername)
+                if (isLikedFromClient)
                 {
                     resultMessage = $"Post with Id: {likeRequest.PostId} has be been Liked from {resultMessage} Ip Address:: {likeRequest.RequestIpAddress} by Username:: {likeRequest.RequestUsername} (Action is permitted only once) ";
 
@@ -198,9 +195,9 @@ namespace Api.Services
         }
 
 
-        private async Task<bool> LikedExistFromClient(string IpAddress, string UserAgent, string postId)
+        private async Task<bool> LikedExistFromClient(string IpAddress, string UserAgent, string clientRefId, string postId, string username)
         {
-            if (await _likeRepository.GetLikeWithIpAddressAndUserAgentForPost(IpAddress, UserAgent, postId) == null)
+            if (await _likeRepository.GetLikeWithIpAddressAndUserAgentForPost(IpAddress, UserAgent, clientRefId, postId, username) == null)
             {
                 return false;
             }
@@ -208,9 +205,9 @@ namespace Api.Services
             return true;
         }
 
-        private async Task<bool> LikedExistFromUsername(string username, string postId)
+        private async Task<bool> LikedExistFromUsername(string username, string postId, string clientRefId)
         {
-            if (await _likeRepository.GetLikeWithUsernameForPost(username, postId) == null)
+            if (await _likeRepository.GetLikeWithUsernameAndClientReferenceIdForPost(username, postId, clientRefId) == null)
             {
                 return false;
             }

@@ -13,13 +13,14 @@ using Api.Resources.Request;
 using Api.Tests.Resources;
 using System.Collections.Generic;
 using Api.Resources.Response;
-using DataAccess.Domain.Models;
+using Api.Middlewares;
 
 namespace Api.Tests.Controller
 {
     public class LikeControllerTests : IntegrationTest
     {
         private readonly ILikeService _mocklikeService;
+        private readonly ICustomValidators _mockcustomValidators;
         private readonly Mock<ILikesRepository> _mocklikerepository;
         private readonly LikesController _likesController;
         private readonly Dictionary<string, string> headerMap;
@@ -29,7 +30,7 @@ namespace Api.Tests.Controller
 
         public LikeControllerTests()
         {
-            _likesController = new LikesController(_mocklikeService, _mapper);
+            _likesController = new LikesController(_mocklikeService, _mapper, _mockcustomValidators);
             headerMap = new Dictionary<string, string>();
             headerMap.Add("Content-Type", "application/json");
 

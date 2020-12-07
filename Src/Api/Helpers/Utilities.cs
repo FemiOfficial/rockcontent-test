@@ -8,54 +8,37 @@ namespace Api.Helpers
 
     public interface IUtilities
     {
-        void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
-        bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);
+        string CreateHmacToken(string message, string key);
+        bool VerifyHmacToken(string clientHmacToken, string clearRefId, string key);
     }
 
     public class Utilities : IUtilities
     {
-        private readonly IHttpContextAccessor _httContextAccessor;
+       
+        public Utilities() { }
 
-        public Utilities(IHttpContextAccessor httpContextAccessor)
-        {
-            _httContextAccessor = httpContextAccessor;
-        }
 
-        public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public string CreateHmacToken(string message, string secret)
         {
-            using (var hmac = new HMACSHA512())
+
+            var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = encoding.GetBytes(secret);
+            byte[] messageBytes = encoding.GetBytes(message);
+            using (var hmacsha256 = new HMACSHA256(keyByte))
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                return Convert.ToBase64String(hashmessage);
             }
         }
 
-        public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        public bool VerifyHmacToken(string clientHmacToken, string clearRefId, string key)
         {
-            using (var hmac = new HMACSHA512(passwordSalt))
+            if(CreateHmacToken(clearRefId, key) == clientHmacToken)
             {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != passwordHash[i])
-                    {
-                        return false;
-                    }
-                }
-
                 return true;
             }
-        }
 
-        public int GetUserIdFromJWToken()
-        {
-            return int.Parse(_httContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
-        }
-
-        public string GetFullNameFromJWToken()
-        {
-            return _httContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            return false;
         }
     }
 }
