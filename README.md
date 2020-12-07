@@ -1,7 +1,7 @@
 ## RockContent - Like Feature
 
 ### Description
-The like feature is a reusable feature component that can be integrated and used on any application. It is a REST Api that can be seen as a widget for Client Applications to manage likes on Articles or other resources on their platform.
+The Like Feature is a reusable feature component that can be integrated and used on any application. It is a REST Api that can be seen as a widget for Client Applications to manage likes on Articles or other resources on their platform.
 
 
 ### Technology Used
@@ -17,7 +17,7 @@ In this section, a decription of what is expected from clients is provided.
 
 | Key      | Description | Data Type |
 | ----------- | ----------- | ----------- |
-| PostId      | Resource (Article or Post) Id from client-side   | String |
+| PostId      | Resource (Article or Post) Identifier from client-side   | String |
 | RequestUsername  | Username from client-side handling authentication (this ensures who liked a particular post)   | String |
 | ClientReferenceId  | Client Reference Id issued to clients integrating to the feature (unique)   | String |
 
@@ -31,7 +31,7 @@ In this section, a decription of how components of the client request contribute
 | RequestUsername      |  Request Body   | String | Username from client-side handling authentication (this ensures who liked a particular post) |
 
 * **From Server Side:** 
-On the server-side, the **Request Origin IpAddress** and **Request Http User-Agent** are captured to ensure the like action is not taken twice from the same device.
+On the server-side, the **Request Origin IpAddress** and **Request Http User-Agent** are captured to ensure the like action is not taken twice from the same device by the same username.
 
 
 ### Installation
@@ -42,4 +42,17 @@ The application can installed and ran easily, either as a docker container or de
 * Clone the repo `git clone https://github.com/FemiOfficial/rockcontent-test.git`
 * Navigate to root folder of the project and run `docker-compose  up -d`, this creates docker containers for the app and MSSQL database
 * Access app from your local machine using `http://localhost:8000//api/likefeature/ping`
+
+
+#### Optimizations
+
+
+#### Improvements
+
+
+#### Resources
+
+
+
+
 
