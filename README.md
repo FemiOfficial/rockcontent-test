@@ -9,7 +9,7 @@ C#, .NET Core 3.1, XUnit, Docker, Microsoft SQL Server
 
 
 ### Technical Decision
-Although, the reusable Like Feature component does not not handle Authentication, Authorization and other user management related features it is important to avoid spam on the Like Feature. These is done as described below:
+Although, the reusable Like Feature component does not handle Authentication, Authorization and other user management related features it is important to avoid spam on the Like Feature. These is done as described below:
 
 
 * **Like Request Model:**
@@ -18,7 +18,7 @@ In this section, a decription of what is expected from clients is provided.
 | Key      | Description | Data Type |
 | ----------- | ----------- | ----------- |
 | PostId      | Resource (Article or Post) Identifier from client-side   | String |
-| RequestUsername  | Username from client-side handling authentication (this ensures who liked a particular post)   | String |
+| RequestUsername  | Username from client-side handling authentication (this captures who liked a particular post)   | String |
 | ClientReferenceId  | Client Reference Id issued to clients integrating to the feature (unique)   | String |
 
 
