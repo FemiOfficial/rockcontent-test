@@ -65,7 +65,5 @@ However, this only reduces response time on the query but a *Messaging Queue* is
 * Write more unit test and integration test on components of the Like feature.
 * Implement a CI/CD Pipeline for change management and effective production deployment pipeline.
 
-## Challenges
-N/A
 
 
