@@ -4,7 +4,7 @@
 The Like Feature is a reusable feature component that can be integrated and used on any application. It is a REST Api that can be seen as a widget for Client Applications to manage likes on Articles or other resources on their platform.
 
 ### Resources
-[Postman_Documentation]https://documenter.getpostman.com/view/6547388/TVmQfbxK
+[Postman Documentation](https://documenter.getpostman.com/view/6547388/TVmQfbxK)
 
 
 ### Technology Used
