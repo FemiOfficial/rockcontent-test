@@ -15,11 +15,11 @@ Although, the reusable Like Feature component does not handle Authentication, Au
 * **Like Request Model:**
 In this section, a decription of what is expected from clients is provided.
 
-| Key      | Description | Data Type |
+| Key      | Data Type | Description |
 | ----------- | ----------- | ----------- |
-| PostId      | Resource (Article or Post) Identifier from client-side   | String |
-| RequestUsername  | Username from client-side handling authentication (this captures who liked a particular post)   | String |
-| ClientReferenceId  | Client Reference Id issued to clients integrating to the feature (unique)   | String |
+| PostId      |  String | Resource (Article or Post) Identifier from client-side   |
+| RequestUsername  | String | Username from client-side handling authentication (this captures who liked a particular post)   |
+| ClientReferenceId  | String |Client Reference Id issued to clients integrating to the feature (unique) | 
 
 
 * **From Client Side Request:**
