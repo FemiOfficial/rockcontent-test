@@ -44,15 +44,15 @@ The application can installed and ran easily, either as a docker container or de
 * Access app from your local machine using `http://localhost:8000//api/likefeature/ping`
 
 
-#### Optimizations
+### Optimizations
 
 
-#### Improvements
+### Improvements
 
 
-#### Resources
+### Resources
 
-
+API Documentation -
 
 
 
